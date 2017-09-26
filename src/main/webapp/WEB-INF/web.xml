@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            WEB-INF/dispatcher-servlet.xml,
+            WEB-INF/applicationContext.xml
+        </param-value>
+    </context-param>
+
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!--configuration needed for spring security-->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <!--it provides the filter proxy for the spring security-->
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <!--filter name should be same as the name of the filter chain-->
+        <filter-name>springSecurityFilterChain</filter-name>
+        <!--this url pattern is used for the interception by filter chain it checks any url pattern after root(/*) -->
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--end of spring security configuration-->
+
+
+
+
+
+</web-app>
